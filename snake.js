@@ -109,10 +109,8 @@ function draw(){
     //gameover
     if(snakeX < box || snakeX>17*box || snakeY < 3*box || snakeY > 17*box ||collision(newHead,snake)){
         dead.play();
-        setTimeout(function(){ 
-            alert("Game Over!!"); 
-            document.location.reload();
-        }, 100);
+        alert("Game Over!!"); 
+        document.location.reload();
         clearInterval(game);
     }
     snake.unshift(newHead);
