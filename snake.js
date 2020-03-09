@@ -77,8 +77,13 @@ function draw(){
         ctx.fillStyle = (i==0)? "green":"white";
         ctx.fillRect(snake[i].x,snake[i].y,box,box);
     }
+    while(collision(food,snake) == true){
+        food = {
+            x: Math.floor(Math.random()*17+1)*box,
+            y: Math.floor(Math.random()*15+3)*box
+        }
+    }
     ctx.drawImage(foodImg,food.x,food.y);
-
     //old head position
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
