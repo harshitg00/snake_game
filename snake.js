@@ -112,7 +112,7 @@ function draw(){
         setTimeout(function(){ 
             alert("Game Over!!"); 
             document.location.reload();
-        }, 0);
+        }, 100);
         clearInterval(game);
     }
     snake.unshift(newHead);
