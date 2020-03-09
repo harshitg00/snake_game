@@ -43,18 +43,19 @@ let score = 0;
 
 let d;
 document.addEventListener("keydown",direction);
+
 function direction(event){
     let key = event.keyCode;
-    if(key == 37 && d!="right"){
+    if(key == 37 && d!="right" && d!="left"){
         d="left";
         left.play();
-    } else if(key == 38 && d!="down"){
+    } else if(key == 38 && d!="down" && d!="up"){
         d="up";
         up.play();
-    }else if(key == 39 && d!="left"){
+    }else if(key == 39 && d!="left" && d!= "right"){
         d= "right";
         right.play();
-    }else if(key == 40 && d!="up"){
+    }else if(key == 40 && d!="up" && d!="down"){
         d="down";
         down.play();
     }
@@ -109,8 +110,10 @@ function draw(){
     //gameover
     if(snakeX < box || snakeX>17*box || snakeY < 3*box || snakeY > 17*box ||collision(newHead,snake)){
         dead.play();
-        alert("Game Over!!"); 
-        document.location.reload();
+        setTimeout(function(){ 
+            alert("Game Over!!"); 
+            document.location.reload();
+        }, 0);
         clearInterval(game);
     }
     snake.unshift(newHead);
