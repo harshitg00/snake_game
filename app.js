@@ -12,10 +12,9 @@ app.get('/',(req,res)=>{
     Players.find({}).sort({score:-1}).exec((err,data)=>{
         if(err) console.log(err)
         else{
-            console.log(data);
         res.render('index',{
             players: data,
-            lowestScore:10
+            lowestScore:data[14].score
         });
     }
     })
