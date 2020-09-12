@@ -14,8 +14,8 @@ app.get('/',(req,res)=>{
         else{
             console.log(data);
         res.render('index',{
-            // players: data,
-            // lowestScore:data[14].score
+            players: data,
+            lowestScore:10
         });
     }
     })
