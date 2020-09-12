@@ -3,9 +3,16 @@
         <title>Snake Game</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
-        <h1> Use Arrow Keys to control </h1>
-        <canvas id="snake" width="608" height="608"></canvas>
+    <body onload="loadPlayers()">
+        <p hidden id="lowestScore"><%=lowestScore%></p>
+        <div class="game">
+            <h1> Use Arrow Keys to control </h1>
+            <canvas id="snake" width="608" height="608"></canvas>
+        </div>
+        <div class="leader-back">
+            <div class="leader-header">Top Scorers</div>
+            <div id="leaderboard"></div>    
+        </div>
     </body>
     <script src="snake.js"></script>
 </html>
