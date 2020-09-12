@@ -14,7 +14,7 @@ app.get('/',(req,res)=>{
         else{
         res.render('index',{
             players: data,
-            lowestScore:data[14].score
+            lowestScore:data[data.length-1].score
         });
     }
     })
@@ -27,20 +27,41 @@ app.get('/data',(req,res)=>{
     })
 })
 app.get('/submit/:name/:score',(req,res)=>{
-    Players.find({}).sort({score:-1}).exec((err,data)=>{
-        if(err) console.log(err)
-        else {
-            Players.deleteOne({"_id":data[14]._id})
-            .then(()=>{
-                console.log('Last Player Deleted')
-            })
-            .catch((err)=>console.log(err))
+    Players.findOne({"name":req.params.name})
+    .then(data => {
+        if(data){
+            if(req.params.score>data.score){
+                Players.deleteOne({"name":req.params.name})
+                .then(()=>{
+                console.log('Same player deleted')
+                })
+                .catch((err)=>console.log(err))
+                Players.create({
+                    name:req.params.name,
+                    score:req.params.score
+                })
+            }
+        } else {
             Players.create({
                 name:req.params.name,
                 score:req.params.score
             })
+            Players.find({}).sort({score:-1}).exec((err,data)=>{
+                if(err) console.log(err)
+                else{
+                    // if(data.length>15){
+                        let index = data.length-1;
+                        Players.deleteOne({"_id":data[index]._id})
+                        .then(()=>{
+                            console.log('Last Player Deleted');
+                        })
+                        .catch((err)=>console.log(err));
+                    // }
+                }
+            })
         }
     })
+    .catch(err => {console.error(`Failed to find document: ${err}`)});
     res.redirect('/');
 })
 
