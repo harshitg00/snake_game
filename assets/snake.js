@@ -142,15 +142,14 @@ function draw(){
             if(score>lowestScore){
                 var Name = prompt('High Score!!  Woohooo!! \nEnter your name: ',"")
                 clearInterval(game);
-                if(Name==""){ 
-                    init();
-                }
-                else {
+                if(Name){
                     updatePlayers(Name,score)
                     setTimeout(loadPlayers,1000);
                     setTimeout(loadPlayers,2000);
                     init();
                     // window.open('/submit/'+Name+'/'+score,"_self");
+                } else {
+                    init();
                 }
             } else {
                 alert("Game Over Champ, Try again?");
