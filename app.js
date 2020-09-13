@@ -31,15 +31,9 @@ app.get('/submit/:name/:score',(req,res)=>{
     .then(data => {
         if(data){
             if(req.params.score>data.score){
-                Players.deleteOne({"name":req.params.name})
-                .then(()=>{
-                console.log('Same player deleted')
-                })
-                .catch((err)=>console.log(err))
-                Players.create({
-                    name:req.params.name,
-                    score:req.params.score
-                })
+                Players.findOneAndUpdate({"name":req.params.name},{"score":req.params.score},{new:true})
+                .then(()=>console.log("Player Updated"))
+                .catch((err)=>console.log(err));
             }
         } else {
             Players.create({
@@ -62,7 +56,6 @@ app.get('/submit/:name/:score',(req,res)=>{
         }
     })
     .catch(err => {console.error(`Failed to find document: ${err}`)});
-    res.redirect('/');
 })
 
 const port = process.env.PORT || 3000;

@@ -31,6 +31,17 @@ snake[0] = {
     x:9*box,
     y:10*box
 }
+function init(){
+    snake = [];
+    snake[0] = {
+        x:9*box,
+        y:10*box
+    }
+    score = 0;
+    last = "null";
+    d = "null";
+    game = setInterval(draw,100);
+}
 
 //food
 let food = {
@@ -123,14 +134,23 @@ function draw(){
         setTimeout(function(){
             if(score>lowestScore){
                 var Name = prompt('High Score!!  Woohooo!! \nEnter your name: ',"")
-                if(Name==""){ window.location.reload(); }
-                else window.open('/submit/'+Name+'/'+score,"_self");
+                clearInterval(game);
+                if(Name==""){ 
+                    init();
+                }
+                else {
+                    updatePlayers(Name,score)
+                    setTimeout(loadPlayers,1000);
+                    setTimeout(loadPlayers,2000);
+                    init();
+                    // window.open('/submit/'+Name+'/'+score,"_self");
+                }
             } else {
                 alert("Game Over Champ, Try again?");
-                window.location.reload();
+                clearInterval(game);
+                init();
             }
         },0);
-        clearInterval(game);
     }
     snake.unshift(newHead);
 
@@ -152,8 +172,14 @@ function loadPlayers(){
                 output += `<li><div class="list_num"> ${players[i].score} </div><div class="hname">${players[i].name}</div></li>`;
             }
             // console.log(output)
+            document.getElementById('lowestScore').textContent = players[players.length-1].score;
             document.getElementById('leaderboard').innerHTML = output;
         }
     }
+    xhr.send();
+}
+function updatePlayers(name,score){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET','/submit/'+name+'/'+score,true);
     xhr.send();
 }
