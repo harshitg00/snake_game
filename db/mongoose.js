@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URI =  process.env.mongoURI;
+const URI= process.env.mongoURI || require('../config/keys').mongoURI;
 mongoose.connect(URI, {
     useNewUrlParser: true,
     useFindAndModify: false,

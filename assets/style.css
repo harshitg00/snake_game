@@ -25,7 +25,8 @@ canvas{
 }
 .leader-back{
     justify-self: flex-end;
-    z-index:-1;
+    height: fit-content;
+    /* z-index:-1; */
     background-color: #58a19285;
     border-radius: 10px 10px 10px 10px;
     padding-bottom: 5px;
@@ -52,7 +53,7 @@ canvas{
     background-color: #fff;
     border-radius: 5px;
     height: minmax(40px,auto);
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     -webkit-box-shadow: 0 5px 5px rgba(0,0,0, 0.1);
     -ms-box-shadow: 0 5px 5px rgba(0,0,0, 0.1);
     box-shadow: 0 5px 5px rgba(0,0,0, 0.1);
