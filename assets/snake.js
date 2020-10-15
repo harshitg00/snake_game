@@ -1,6 +1,6 @@
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
-
+const lowestScore = document.getElementById('lowestScore').textContent;
 const box = 32;
 
 //images
@@ -31,6 +31,17 @@ snake[0] = {
     x:9*box,
     y:10*box
 }
+function init(){
+    snake = [];
+    snake[0] = {
+        x:9*box,
+        y:10*box
+    }
+    score = 0;
+    last = "null";
+    d = "null";
+    game = setInterval(draw,100);
+}
 
 //food
 let food = {
@@ -46,6 +57,13 @@ let score = 0;
 let last;
 let d;
 document.addEventListener("keydown",direction);
+
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
 
 function direction(event){
     let key = event.keyCode;
@@ -111,7 +129,7 @@ function draw(){
     }
 
     
-    //add new head
+    //add new head  
     let newHead = {
         x: snakeX,
         y: snakeY
@@ -120,11 +138,25 @@ function draw(){
     //gameover
     if(snakeX < box || snakeX>17*box || snakeY < 3*box || snakeY > 17*box ||collision(newHead,snake)){
         dead.play();
-        setTimeout(function(){ 
-            alert("Game Over!!"); 
-            document.location.reload();
-        }, 0);
-        clearInterval(game);
+        setTimeout(function(){
+            if(score>lowestScore){
+                var Name = prompt('High Score!!  Woohooo!! \nEnter your name: ',"")
+                clearInterval(game);
+                if(Name){
+                    updatePlayers(Name,score)
+                    setTimeout(loadPlayers,1000);
+                    setTimeout(loadPlayers,2000);
+                    init();
+                    // window.open('/submit/'+Name+'/'+score,"_self");
+                } else {
+                    init();
+                }
+            } else {
+                alert("Game Over Champ, Try again?");
+                clearInterval(game);
+                init();
+            }
+        },0);
     }
     snake.unshift(newHead);
 
@@ -134,3 +166,26 @@ function draw(){
 }
 
 let game = setInterval(draw,100);
+
+function loadPlayers(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET','/data',true);
+    xhr.onload = function(){
+        if(this.status == 200){
+            var players = JSON.parse(this.responseText);
+            output = '';
+            for(i in players){
+                output += `<li><div class="list_num"> ${players[i].score} </div><div class="hname">${players[i].name}</div></li>`;
+            }
+            // console.log(output)
+            document.getElementById('lowestScore').textContent = players[players.length-1].score;
+            document.getElementById('leaderboard').innerHTML = output;
+        }
+    }
+    xhr.send();
+}
+function updatePlayers(name,score){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET','/submit/'+name+'/'+score,true);
+    xhr.send();
+}

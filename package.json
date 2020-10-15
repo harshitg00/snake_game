@@ -1,0 +1,28 @@
+{
+  "name": "snakegame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev":"nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshitg00/snake_game.git"
+  },
+  "author": "Harshit Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harshitg00/snake_game/issues"
+  },
+  "homepage": "https://github.com/harshitg00/snake_game#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
