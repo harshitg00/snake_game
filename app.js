@@ -2,7 +2,7 @@ const express = require('express');
 require('./db/mongoose')
 const Players = require('./db/model')
 
-const app = express();
+const app = express(); 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
@@ -19,6 +19,7 @@ app.get('/',(req,res)=>{
     }
     })
 })
+
 app.get('/data',(req,res)=>{
     Players.find({}).sort({score:-1}).exec((err,data)=>{
         if(err) console.log(err)
