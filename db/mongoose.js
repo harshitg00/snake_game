@@ -10,5 +10,6 @@ mongoose.connect(URI, {
         console.log(err);
     } else {
         console.log('MongoDB Connected');
+        console.log('Git and Github');
     }
 })
