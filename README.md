@@ -5,3 +5,4 @@ A learning project. Play here:
 Leaderboard is also added. Go an check it in the link above.
 
 - This project is built using Node.js and javascript.
+- Feel free to open an issue if you find any bugs.
