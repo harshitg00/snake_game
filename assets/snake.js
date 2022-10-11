@@ -25,7 +25,7 @@ const eat = new Audio();
 eat.src = "audio/eat.mp3";
 
 
-//snake
+//snake initialization
 let snake = [];
 snake[0] = {
     x:9*box,
